@@ -21,11 +21,13 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 - Terminal
 
 # Installing
-
 - To get started with the installation, we first need to make sure we have nodejs and npm installed with the latest version.     The npm package gets installed along with nodejs.(https://nodejs.org/en) 
   NPM: `npm install npm@latest -g`
 - Angular CLI: To install the Angular CLI, which is a command line tool that we can use to scaffold Angular applications, we     can run the following command: `npm install -g @angular/cli`
 - Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any     of the source files.
+
+- Cloning from Github: `git clone https://github.com/agnesvassy/clouderatask1.git`
+- After cloning the project run `npm install` and then run `ng serve`
 
 
 ## Code scaffolding
