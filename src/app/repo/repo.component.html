@@ -1,12 +1,12 @@
+<!-- import bootstrap4   -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/fontawesome.min.css" />
-
+<!-- navigation -->
 <nav class=" navbar navbar-expand-lg navbar-light bg-light mb-4 navbar-fixed-top">
   <a class="navbar-brand mr-4" href="#"><h2>GitHub Repo search</h2></a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-
+  <!-- input field for searching repository -->
   <form class="form-inline my-2 my-lg-0">
     <input type="search" placeholder="Search by repository name" [(ngModel)]="reponame" name="reponame">
     <button class="btn btn-outline-info" type="text" (click)="findRepo(reponame)">Search</button>
@@ -14,50 +14,49 @@
 </nav>
 <div class="container">
   <p class="heading rounded text-center"><b>Issues by:</b> {{username}}  <b class="ml-5">reponame:</b> {{reponame}}</p>
-
   <div class="d-flex content ">
+    <!-- List of repositories stored as an array of items returned by GitHub API-->
     <div class="repolist mr-4">
-      <!-- <p class="heading rounded text-center">Repositories</p> -->
-      <!-- <div class="cardcontainer"*ngFor="let item of repo.items; let i = index" (click)="setClickedRow(i)" [class.active]="i == selectedRow"> -->
       <div class="cardcontainer"*ngFor="let item of repo.items; let i = index">
         <div class="mb-2">
+          <!-- adding active class to the selected card -->
           <div class="card" [class.active]="i == selectedRow">
-          <!-- <div class="card mb-2" <div class="card mb-2" [ngClass]="{'active': i === item.id}" (click)="i = item.id"> -->
-          <h3 class="card-header p-4">{{item.name}}</h3>
-          <div class="card-body">
-            <h4 class="card-title">{{item.owner.login}}</h4>
-            <p class="card-text">{{item.description}}</p>
-            <div class="mb-3" style="font-size:.8em">
-              <img class="mr-2" src="https://img.icons8.com/ultraviolet/20/000000/code-fork.png"><span  class="mr-3">{{item.forks_count}} Forks,</span>
-              <img class="mr-2" src="https://img.icons8.com/officel/20/000000/star.png"><span  class="mr-3">{{item.stargazers_count}} Star,</span>
-              <img class="mr-2" src="https://img.icons8.com/color/20/000000/open-envelope.png"><span  class="mr-3">{{item.open_issues_count}} Open issue,</span>
-              <img class="mr-2" src="https://img.icons8.com/offices/20/000000/visible.png"><span  class="mr-3">{{item.watchers}} Watchers</span>
-            </div>
-          </div>
-          <div class="card-footer d-flex">
-            <!-- (click)="repoClicked=!repoClicked"
-            [class.activeCard]="repoClicked"-->
-            <div>
-              <a class="d-flex" style="align-items:center" href="{{item.html_url}}">
-                <div class="mr-1 mt-1"><svg xmlns="http://www.w3.org/2000/svg" x="10px" y="10px"
-                  width="30" height="30"
-                  viewBox="0 0 172 172"
-                  style=" fill:#000000;"><g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><path d="M0,172v-172h172v172z" fill="none"></path><g fill="#8bb7f0"><path d="M80.625,10.75c-38.59082,0 -69.875,31.24219 -69.875,69.74902c0,30.82227 20.03027,56.98341 47.78711,66.22169c3.48534,0.62987 5.96289,-2.93946 5.96289,-5.62696c0,-1.6377 0.04199,-3.61132 0,-9.40625c-19.44239,4.19922 -25.53125,-9.40625 -25.53125,-9.40625c-3.19141,-8.0625 -7.05469,-10.37207 -7.05469,-10.37207c-6.34082,-4.32519 0.46192,-4.19922 0.46192,-4.19922c7.0127,0.46192 10.62402,6.50879 10.62402,6.50879c5.375,9.40625 17.51074,8.48243 21.5,6.71875c0,-4.2832 0.46192,-7.39062 1.6377,-9.36426c-21.96192,-3.86328 -33.92969,-16.54492 -33.8877,-34.09766c0.04199,-10.37206 3.61133,-18.43456 9.40625,-24.39746c-2.51953,-3.19141 -4.24121,-14.10937 0.92383,-20.82812c12.97558,0 20.70215,9.36426 20.70215,9.36426c0,0 6.08886,-2.64551 17.30078,-2.64551c11.25391,0 17.30078,2.51953 17.30078,2.51953c0,0 7.76855,-9.23828 20.74414,-9.23828c5.16504,6.71875 3.44336,17.63672 1.42774,20.61817c5.54297,5.83692 8.94433,13.89942 8.94433,24.60742c0,17.55274 -11.92578,30.23438 -33.8457,34.05567c1.38574,2.09961 1.5957,5.03906 1.5957,9.40625c0,9.32227 0,17.84668 0,20.15625c0,2.6875 2.43555,6.29883 6.00489,5.62696c27.75683,-9.28028 47.74511,-35.39942 47.74511,-66.22169c0,-38.50683 -31.28418,-69.74902 -69.875,-69.74902z"></path></g></g></svg>
-                </div>
-                <div>Go to repository</div></a>
+            <h3 class="card-header p-4">{{item.name}}</h3>
+            <div class="card-body">
+              <h4 class="card-title">{{item.owner.login}}</h4>
+              <p class="card-text">{{item.description}}</p>
+              <div class="mb-3" style="font-size:.8em">
+                <img class="mr-2" src="https://img.icons8.com/ultraviolet/20/000000/code-fork.png"><span  class="mr-3">{{item.forks_count}} Forks,</span>
+                <img class="mr-2" src="https://img.icons8.com/officel/20/000000/star.png"><span  class="mr-3">{{item.stargazers_count}} Star,</span>
+                <img class="mr-2" src="https://img.icons8.com/color/20/000000/open-envelope.png"><span  class="mr-3">{{item.open_issues_count}} Open issue,</span>
+                <img class="mr-2" src="https://img.icons8.com/offices/20/000000/visible.png"><span  class="mr-3">{{item.watchers}} Watchers</span>
               </div>
-              <div (click)="[displayIssues(i),setClickedRow(i)]" class="btn btn-outline-info">Issues <img src="https://img.icons8.com/office/16/000000/arrow.png"></div>
             </div>
-          </div>
+            <div class="card-footer d-flex">
+              <div>
+                <a class="d-flex" style="align-items:center" href="{{item.html_url}}">
+                  <div class="mr-1 mt-1"><svg xmlns="http://www.w3.org/2000/svg" x="10px" y="10px"
+                    width="30" height="30"
+                    viewBox="0 0 172 172"
+                    style=" fill:#000000;"><g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><path d="M0,172v-172h172v172z" fill="none"></path><g fill="#8bb7f0"><path d="M80.625,10.75c-38.59082,0 -69.875,31.24219 -69.875,69.74902c0,30.82227 20.03027,56.98341 47.78711,66.22169c3.48534,0.62987 5.96289,-2.93946 5.96289,-5.62696c0,-1.6377 0.04199,-3.61132 0,-9.40625c-19.44239,4.19922 -25.53125,-9.40625 -25.53125,-9.40625c-3.19141,-8.0625 -7.05469,-10.37207 -7.05469,-10.37207c-6.34082,-4.32519 0.46192,-4.19922 0.46192,-4.19922c7.0127,0.46192 10.62402,6.50879 10.62402,6.50879c5.375,9.40625 17.51074,8.48243 21.5,6.71875c0,-4.2832 0.46192,-7.39062 1.6377,-9.36426c-21.96192,-3.86328 -33.92969,-16.54492 -33.8877,-34.09766c0.04199,-10.37206 3.61133,-18.43456 9.40625,-24.39746c-2.51953,-3.19141 -4.24121,-14.10937 0.92383,-20.82812c12.97558,0 20.70215,9.36426 20.70215,9.36426c0,0 6.08886,-2.64551 17.30078,-2.64551c11.25391,0 17.30078,2.51953 17.30078,2.51953c0,0 7.76855,-9.23828 20.74414,-9.23828c5.16504,6.71875 3.44336,17.63672 1.42774,20.61817c5.54297,5.83692 8.94433,13.89942 8.94433,24.60742c0,17.55274 -11.92578,30.23438 -33.8457,34.05567c1.38574,2.09961 1.5957,5.03906 1.5957,9.40625c0,9.32227 0,17.84668 0,20.15625c0,2.6875 2.43555,6.29883 6.00489,5.62696c27.75683,-9.28028 47.74511,-35.39942 47.74511,-66.22169c0,-38.50683 -31.28418,-69.74902 -69.875,-69.74902z"></path></g></g></svg>
+                  </div>
+                  <div>Go to repository</div></a>
+                </div>
+                <!-- calling the two functions below to set the selected card and to get the selected repo's issues -->
+                <div (click)="[displayIssues(i),setClickedRow(i)]" class="btn btn-outline-info">Issues <img src="https://img.icons8.com/office/16/000000/arrow.png"></div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
+      <!-- List of issues stored as an array of items returned by GitHub API-->
       <div class="issuelist ">
         <div class="">
           <ul class="list-group">
             <li *ngFor="let iss of issue.items; let i = index" class="mb-4">
               <div class="list-group-item">
                 <div class=" d-flex issueheading">
+                  <!-- get the labels of the issues using their own color -->
                   <div class="mr-1" *ngFor="let label of iss.labels">
                     <div class="p-1 labels rounded" [ngStyle]="{'background': '#'+label.color}">{{label.name}}  </div>
                   </div>
@@ -66,14 +65,17 @@
                   <h4 class="mr-4">{{iss.title}}</h4>
 
                 </div>
+                <!-- providing extra details of the issue -->
                 <div class='issuedetails d-flex'>
-                  <p class="">#{{iss.number}} opened on {{iss.created_at| date :  "dd.MM.y"}} by {{iss.user.login}} </p>
+                  <p class="">#{{iss.number}} opened on {{iss.created_at| date :  "dd.MM.y"}} by {{iss.user.login}} </p><br />
                   <p><img src="https://img.icons8.com/carbon-copy/20/000000/speech-bubble-with-dots.png">{{iss.comments}} </p>
-                  <!-- <p (mouseover)="showBody=true" (mouseout)="showBody=false">
-                  <span [hidden]="!showBody">{{iss.body}}</span>
-                  <span [hidden]="showBody">haliho</span>
-                </p> -->
-              </div>
+                </div>
+                <table class="table"><tr>
+                  <td><b>Status:</b></td><td> {{iss.state}}  </td>
+                  <td><b>Last updated:</b></td><td>{{iss.updated_at| date :  "dd.MM.y"}}</td>
+                </tr>
+              </table>
+
               <p class="d-block">{{iss.description}}  </p>
               <div class="d-flex">
                 <a class="d-flex" href="{{iss.html_url}}">
@@ -83,9 +85,6 @@
                     style=" fill:#000000;"><g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><path d="M0,172v-172h172v172z" fill="none"></path><g fill="#8bb7f0"><path d="M80.625,10.75c-38.59082,0 -69.875,31.24219 -69.875,69.74902c0,30.82227 20.03027,56.98341 47.78711,66.22169c3.48534,0.62987 5.96289,-2.93946 5.96289,-5.62696c0,-1.6377 0.04199,-3.61132 0,-9.40625c-19.44239,4.19922 -25.53125,-9.40625 -25.53125,-9.40625c-3.19141,-8.0625 -7.05469,-10.37207 -7.05469,-10.37207c-6.34082,-4.32519 0.46192,-4.19922 0.46192,-4.19922c7.0127,0.46192 10.62402,6.50879 10.62402,6.50879c5.375,9.40625 17.51074,8.48243 21.5,6.71875c0,-4.2832 0.46192,-7.39062 1.6377,-9.36426c-21.96192,-3.86328 -33.92969,-16.54492 -33.8877,-34.09766c0.04199,-10.37206 3.61133,-18.43456 9.40625,-24.39746c-2.51953,-3.19141 -4.24121,-14.10937 0.92383,-20.82812c12.97558,0 20.70215,9.36426 20.70215,9.36426c0,0 6.08886,-2.64551 17.30078,-2.64551c11.25391,0 17.30078,2.51953 17.30078,2.51953c0,0 7.76855,-9.23828 20.74414,-9.23828c5.16504,6.71875 3.44336,17.63672 1.42774,20.61817c5.54297,5.83692 8.94433,13.89942 8.94433,24.60742c0,17.55274 -11.92578,30.23438 -33.8457,34.05567c1.38574,2.09961 1.5957,5.03906 1.5957,9.40625c0,9.32227 0,17.84668 0,20.15625c0,2.6875 2.43555,6.29883 6.00489,5.62696c27.75683,-9.28028 47.74511,-35.39942 47.74511,-66.22169c0,-38.50683 -31.28418,-69.74902 -69.875,-69.74902z"></path></g></g></svg>
                   </div>See details on gitHub</a>
                 </div>
-
-
-
               </div>
             </li>
           </ul>
@@ -93,19 +92,3 @@
       </div>
     </div>
   </div>
-  <!-- <ul>
-  <li *ngFor="let item of repo.items; let i = index">
-  <div (click)="displayIssues(i)">{{i}} </div>
-  {{item.owner.id}} {{item.owner.login}} {{item.id}} {{item.name}} {{item.full_name}} {{item.url}} {{item.description}} {{item.forks_count}} {{item.stargazers_count}} {{item.open_issues_count}}
-</li>
-</ul>
-
-
-<h5>Issues: </h5> -->
-
-<!-- <ul>
-<li *ngFor="let iss of issue.items; let i = index">
-{{i}} - {{iss.id}} - {{iss.number}} - {{iss.title}} - {{iss.state}} - {{iss.user.id}} -{{iss.user.login}}
-<div *ngFor="let label of iss.labels">{{label.id}}, {{label.name}}, {{label.color}}</div>
-</li>
-</ul> -->

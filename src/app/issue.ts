@@ -1,4 +1,4 @@
-
+//Defining classes needed to store Issue details
 export class User {
       id: string;
       login: string;

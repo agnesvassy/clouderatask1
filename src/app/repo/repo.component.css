@@ -1,14 +1,4 @@
-/* The starting CSS styles for the enter animation */
-.app-repo {
-  transition:0.5s linear all;
-  opacity:0;
-}
-
-/* The finishing CSS styles for the enter animation */
-.app-repo {
-  opacity:1;
-}
-
+/* styling fixed navbar width input field and search button  */
 nav{
   display: flex;
   justify-content: space-evenly;
@@ -17,9 +7,6 @@ nav{
   right:0;
   height: 9vmin;
   z-index: 10;
-}
-h2, h3{
-  color:#777;
 }
 input{
   height: 5vmin;
@@ -38,19 +25,14 @@ nav button:hover{
   border: 1px solid #8BB7F0;
   color:#fff;
 }
-
+/* some general style applied for every li, h2, h3 element in repo component */
 li{
   list-style: none;
 }
-.list-group-item.heading, .issuedetails{
-  justify-content: space-between;
+h2, h3{
+  color:#777;
 }
-.issuelist{
-  width: 40%;
-}
-.labels{
-  font-size:.8em;
-}
+/* styling the heading part */
 .heading{
   background: rgba(139, 183, 240,1);
   padding:2vmin;
@@ -63,6 +45,7 @@ li{
   text-transform: uppercase;
 
 }
+/* style for the content part of the page */
 .content{
   position: relative;
   margin-top:20vmin;
@@ -70,10 +53,15 @@ li{
   overflow: auto;
   height: 100vh;
 }
+/* give scrolling option separately to the two main list */
 .issuelist, .repolist{
   height: 100%;
   overflow: scroll;
   width: 50%;
+}
+/* formatting repolist's card elements */
+.labels{
+  font-size:.8em;
 }
 .card, .issuelist li{
   box-shadow: 0 10px 30px rgba(0,0,0,.1);
@@ -106,4 +94,8 @@ a:hover{
 }
 a:hover svg{
   transform: scale(1.2,1.2);
+}
+/* formatting issuelist's elements  */
+.list-group-item.heading, .issuedetails{
+  justify-content: space-between;
 }

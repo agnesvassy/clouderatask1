@@ -10,10 +10,10 @@ import { RepoService } from '../services/repo.service';
   styleUrls: ['./repo.component.css']
 })
 export class RepoComponent implements OnInit {
-  repo: Repo;
-  issue: Issue;
-  reponame: string;
-  username: string;
+  repo: Repo; //class storing repository details as returned by gitHub API
+  issue: Issue; //class storing issue details as returned by gitHub API
+  reponame: string; //searched repository name
+  username: string; //selected repository username
 
   public active = false;
   public repoClicked = false;
@@ -21,15 +21,18 @@ export class RepoComponent implements OnInit {
   displayIssues : Function;
 
 
-
+  // Repo component's constructor
   constructor(private service: RepoService) {
+    // calling gitHub API to search repo
     this.service.getRepoInfo().subscribe(repo => {
       console.log(this.reponame + 'reponame from constr');
       console.log(repo);
       console.log(repo.items[0].id);
       console.log(repo.items.length);
       this.repo = repo;
+      //retreiving issues for the first repo
       this.service.updateUser(this.repo.items[0].owner.login);
+      // calling gitHub API to seach repo issues
       this.service.getRepoIssues().subscribe(issue => {
         console.log(issue);
         console.log(issue.items[0].id);
@@ -38,17 +41,17 @@ export class RepoComponent implements OnInit {
         this.username = this.repo.items[0].owner.login;
         this.reponame = this.repo.items[0].name;
       });
-
+      // highlighting selected repo
       this.setClickedRow = function(index){
         this.selectedRow = index;
         this.username = this.repo.items[0].owner.login;
         this.reponame = repo.items[index].name;
       };
+      // displaying issues for selected repo
       this.displayIssues = function(itemnumber){
         console.log('itemnumber' + itemnumber);
         this.service.updateUser(this.repo.items[itemnumber].owner.login);
         this.service.getRepoIssues().subscribe(issue => {
-
           console.log('ISSUE' + issue);
           console.log(issue.items[0].id);
           console.log('ISSUE ITEM LENGHT'+ issue.items.length);
@@ -60,6 +63,7 @@ export class RepoComponent implements OnInit {
     }
   )};
 
+  // calling gitHub API to search repo
   findRepo(reponame) {
     console.log('in findrepo()');
     this.reponame = reponame;
@@ -67,8 +71,9 @@ export class RepoComponent implements OnInit {
     this.service.getRepoInfo().subscribe(repo => {
       console.log(repo);
       this.repo = repo;
-
+      //retreiving issues for the first repo
       this.service.updateUser(this.repo.items[0].owner.login);
+      // calling gitHub API to seach repo issues
       this.service.getRepoIssues().subscribe(issue => {
         console.log('in getrepoissues');
         console.log(issue);
@@ -77,30 +82,15 @@ export class RepoComponent implements OnInit {
         this.issue = issue;
         this.username = this.repo.items[0].owner.login;
         this.reponame = this.repo.items[0].name;
-
-
       });
-      // for(let i=0; i<this.repo.items.length; i++) {
-      //   console.log(this.repo.items[i].owner.login);
-      //   this.service.updateUser(this.repo.items[i].owner.login);
-      //   this.service.getRepoIssues().subscribe(issue => {
-      //     console.log('fromConstructor issue title:'+issue);
-      //     console.log('constr issue items:' + issue.items[i].id);
-      //     console.log('constr issue length:'+issue.items.length);
-      //     console.log(Object.keys(issue.items[i]));
-      //     console.log(Object.values(issue.items[i]));
-      //     console.log('issue' + issue);
-      //     // this.issues=issue.items[i];
-      //     // console.log('issues :'+ this.issues);
-      //     console.log('kecskethisissue'+this.issues);
-      //   });
-      // }
+      // highlighting selected repo
       this.setClickedRow = function(index){
         this.selectedRow = index;
         this.username = this.repo.items[0].owner.login;
         this.reponame = repo.items[index].name;
         console.log('reponame from setclickedrow' + this.reponame);
       };
+      // displaying issues for selected repo
       this.displayIssues = function(itemnumber){
         this.reponame = repo.items[itemnumber].name;
         console.log('itemnumber' + itemnumber);
@@ -108,7 +98,6 @@ export class RepoComponent implements OnInit {
         this.service.updateUser(this.repo.items[itemnumber].owner.login);
         this.service.updateRepo(this.repo.items[itemnumber].name);
         this.service.getRepoIssues().subscribe(issue => {
-
           console.log('ISSUE' + issue);
           console.log(issue.items[0].id);
           console.log('ISSUE ITEM LENGHT'+ issue.items.length);
@@ -118,28 +107,9 @@ export class RepoComponent implements OnInit {
         });
       }
     }
-
   )};
 
-  // displayIssues(itemnumber){
-  //   console.log('itemnumber' + itemnumber);
-  //   this.service.updateUser(this.repo.items[itemnumber].owner.login);
-  //   this.service.getRepoIssues().subscribe(issue => {
-  //     console.log('ISSUE' + issue);
-  //     console.log(issue.items[0].id);
-  //     console.log('ISSUE ITEM LENGHT'+ issue.items.length);
-  //     this.issue = issue;
-  //     this.username = this.repo.items[itemnumber].owner.login;
-  //     console.log('this username' + this.username);
-  //   });
-  // }
-
-
-
-
   ngOnInit() {
-    // this.reponame = this.service.getRepoName(this.id);
-
   }
 
 }

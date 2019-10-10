@@ -16,41 +16,29 @@ export class RepoService {
   private reponame: string;
   private username: string;
 
-  // private clientid = '203dd913322b3db7d987';
-  // private clientsecret = '020c0b3665296b33d758edeeced30473ef44f7da';
-  private clientid = '44cf0145eded18767645';
-  private clientsecret = '6400fc0894c551b2f633a13ee7d3089d0ed90d55';
-
 
   constructor(
     private http: HttpClient,
     private messageService: MessageService) {
       console.log('service is now ready');
-      // this.reponame = 'React-Redux-Firebase-App';
-      // this.username = 'iamshaunjp';
-      this.reponame = 'kaposztasteszta';
+      // setting default
+      this.reponame = 'clouderatask1';
       this.username = 'agnesvassy';
-      // this.reponame = 'bootstrap';
-      // this.username = 'twbs';
-
       console.log('Default reponame:'+this.reponame+', username:'+this.username);
     }
-
+    // calling gitHub Repo Api service
     getRepoInfo (): Observable<Repo> {
-      console.log('REPONAME1'+ this.reponame);
       console.log('https://api.github.com/search/repositories?q=' + this.reponame);
       return this.http.get<Repo>('https://api.github.com/search/repositories?q=' + this.reponame)
       .pipe(
         tap(_ => this.log('fetched repo')),
         catchError(this.handleError<Repo>('getRepoInfo', ))
       );
-      console.log('REPONAME2'+ this.reponame);
     }
-
+    // calling gitHub Issue Api service
     getRepoIssues(): Observable<Issue> {
       console.log('https://api.github.com/search/issues?q=repo:' + this.username + '/' + this.reponame);
-       return this.http.get<Issue>('https://api.github.com/search/issues?q=repo:' + this.username + '/' + this.reponame)
-      // return this.http.get<Issue>('https://api.github.com/search/issues?q=repo:' + this.username + '/' + this.reponame + '?client_id=' + this.clientid + '&client_secret=' + this.clientsecret)
+      return this.http.get<Issue>('https://api.github.com/search/issues?q=repo:' + this.username + '/' + this.reponame)
       .pipe(
         tap(_ => this.log('fetched issue')),
         catchError(this.handleError<Issue>('getRepoIssues', ))
@@ -59,7 +47,6 @@ export class RepoService {
 
     updateRepo(reponame: string) {
       this.reponame = reponame;
-      console.log('reponame in service'+ this.reponame);
     }
 
     updateUser(username: string) {
@@ -87,7 +74,7 @@ export class RepoService {
       };
     }
 
-    /** Log a HeroService message with the MessageService */
+    /** Log a Service message with the MessageService */
     private log(message: string) {
       this.messageService.add('RepoService: ${message}');
     }

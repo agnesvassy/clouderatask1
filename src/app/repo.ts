@@ -1,4 +1,4 @@
-
+//Defining classes needed to store Repo details
 export class Owner {
       id: string;
       login: string;
